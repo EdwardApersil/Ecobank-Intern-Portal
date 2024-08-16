@@ -1,4 +1,7 @@
 package com.ecobank.intern_portal.repository;
 
-public interface LineManagerRespository {
+import com.ecobank.intern_portal.model.LineManagers;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LineManagerRespository extends JpaRepository<LineManagers, Long> {
 }
