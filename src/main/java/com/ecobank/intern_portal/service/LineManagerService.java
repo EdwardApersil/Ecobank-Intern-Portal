@@ -13,8 +13,6 @@ public interface LineManagerService {
 
     List<LineManagerDto> getAllLineManagers();
 
-//    LineManagerDto updateLineManager(LineManagerDto updatedLineManagerDto);
-
     LineManagerDto updateLineManager(LineManagerDto updatedLineManagerDto);
 
     LineManagerDto updateLineManager(Long id, LineManagerDto updatedLineManagerDto);

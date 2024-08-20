@@ -6,6 +6,7 @@ import com.ecobank.intern_portal.model.Admins;
 import com.ecobank.intern_portal.repository.AdminRespository;
 import com.ecobank.intern_portal.service.AdminService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public class AdminImplement implements AdminService {
 
     @Override
     public AdminDto createAdmin(AdminDto adminDto){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // Check if a hashed version of this password already exists
+        List<Admins> allAdmins = adminRespository.findAll();
+        for (Admins admin : allAdmins) {
+            if (passwordEncoder.matches(adminDto.getPassword(), admin.getPassword())) {
+                throw new IllegalArgumentException("The password already exists. Please choose a different password.");
+            }
+        }
         Admins Admins = AdminMapper.mapToAdmin(adminDto);
         com.ecobank.intern_portal.model.Admins savedAdmin = adminRespository.save(Admins);
         return AdminMapper.mapToAdminDto(savedAdmin);

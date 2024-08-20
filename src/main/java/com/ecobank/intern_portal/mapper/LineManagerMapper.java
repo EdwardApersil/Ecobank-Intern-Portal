@@ -7,8 +7,8 @@ public class LineManagerMapper {
     public static LineManagerDto mapToLineManagerDto(LineManagers lineManager) {
         return new LineManagerDto(
                 lineManager.getId(),
-                lineManager.getFirst_name(),
-                lineManager.getLast_name(),
+                lineManager.getFirstName(),
+                lineManager.getLastName(),
                 lineManager.getEmail(),
                 lineManager.password()
         );
@@ -17,8 +17,8 @@ public class LineManagerMapper {
     public static LineManagers mapToLineManager(LineManagerDto lineManagerDto) {
         return new LineManagers(
                 lineManagerDto.getId(),
-                lineManagerDto.getFirst_name(),
-                lineManagerDto.getLast_name(),
+                lineManagerDto.getFirstName(),
+                lineManagerDto.getLastName(),
                 lineManagerDto.getEmail(),
                 lineManagerDto.getPassword()
         );
