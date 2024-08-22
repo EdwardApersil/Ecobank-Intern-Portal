@@ -3,10 +3,10 @@ package com.ecobank.intern_portal.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Complaints")
+@Table(name = "complaints")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,21 +23,20 @@ public class Complaint {
     @Column(name = "status")
     private String status;
 
+    @Setter
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private java.sql.Timestamp createdAt;
 
     @ManyToOne
     @JoinColumn(name = "intern_id")
     private Intern intern;
 
     @ManyToOne
-    @JoinColumn(name = "reviewed_by")
+    @JoinColumn(name = "reviewed_id")
     private Admins reviewedBy;
 
-    public Complaint(Long id, String status, String content, java.sql.Timestamp createdAt, Object intern, Object reviewedBy) {
+
+    public void setCreatedAt(Timestamp createdAt) {
     }
 
-    public void setCreatedAt(java.sql.Timestamp createdAt) {
-
-    }
 }

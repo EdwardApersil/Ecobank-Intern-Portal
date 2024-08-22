@@ -18,15 +18,15 @@ public class Intern {
     private Long id;
 
     @Column(name = "first_name", nullable = false)
-    private String first_name;
+    private String firstName; // Changed to camelCase
 
     @Column(name = "last_name", nullable = false)
-    private String last_name;
+    private String lastName; // Changed to camelCase
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, unique = true)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToOne
@@ -45,13 +45,27 @@ public class Intern {
 
     public Intern(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
-        this.first_name = firstName;
-        this.last_name = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public String password() {
-        return null;
+    public Intern(Long id, String firstName, String lastName, String email, String password, Long departmentId, Long lineManagerId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.department = new Department(departmentId);
+        this.lineManager = new LineManagers(lineManagerId);
+    }
+
+    public Intern(Long internId) {
+        this.id = internId;
+    }
+
+    public void setIntern(Intern intern) {
+        this.id = intern.getId();
     }
 }

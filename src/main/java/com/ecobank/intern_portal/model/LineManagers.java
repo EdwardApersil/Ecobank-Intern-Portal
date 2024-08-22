@@ -3,6 +3,7 @@ package com.ecobank.intern_portal.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class LineManagers {
 
     @OneToMany(mappedBy = "lineManager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
+    @Setter
+    private Timestamp createdAt;
 
     public LineManagers(Long id, String firstName, String lastName, String email, String password) {
         this.id = id;
@@ -55,7 +58,12 @@ public class LineManagers {
         this.password = password;
     }
 
-    public String password() {
-        return null;
+    public LineManagers(Long lineManagerId) {
+        this.id = lineManagerId;
     }
+
+    public String password() {
+        return password;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.ecobank.intern_portal.dto;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,26 +13,31 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ComplaintDto {
     private Long id;
     private String content;
     private String status;
-    private InternDto intern;
-    private AdminDto reviewedBy;
+
+    @JsonProperty("intern_id")
+    private Long internId;
+
+    @JsonProperty("reviewed_id")
+    private Long reviewedBy;
+
+    @JsonProperty("created_at")
     private Timestamp createdAt;
 
-    public ComplaintDto(String content, String status, Long id){
+    public ComplaintDto(Long id, String content, String status, Timestamp createdAt, Long reviewedBy, Long aLong) {
+        this.id = id;
         this.content = content;
         this.status = status;
-        this.id = id;
-        this.createdAt = new Timestamp(System.currentTimeMillis());
-        this.intern = null;
-        this.reviewedBy = null;
+        this.internId = aLong;
+        this.reviewedBy = reviewedBy;
+        this.createdAt = createdAt;
     }
 
-    public ComplaintDto(Long id, String status, String content, java.security.Timestamp createdAt) {
-    }
+    public ComplaintDto(Long id, String content, String status, java.security.Timestamp createdAt, Long aLong, Long aLong1) {
 
-    public ComplaintDto(Long id, String status, String content, java.security.Timestamp createdAt, Object reviewedBy, Object createdAt1) {
     }
 }

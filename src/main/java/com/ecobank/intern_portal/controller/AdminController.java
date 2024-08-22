@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/intern-portal/v1")
+@CrossOrigin
 public class AdminController {
 
     private final AdminService adminService;

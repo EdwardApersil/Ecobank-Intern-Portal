@@ -2,7 +2,9 @@ package com.ecobank.intern_portal.service.implementations;
 
 import com.ecobank.intern_portal.dto.LineManagerDto;
 import com.ecobank.intern_portal.mapper.LineManagerMapper;
+import com.ecobank.intern_portal.model.Department;
 import com.ecobank.intern_portal.model.LineManagers;
+import com.ecobank.intern_portal.repository.DepartmentRespository;
 import com.ecobank.intern_portal.repository.LineManagerRespository;
 import com.ecobank.intern_portal.service.LineManagerService;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,7 @@ public class LineManagerImplement implements LineManagerService {
      * Repository for accessing LineManager data.
      */
     public LineManagerRespository lineManagerRespository;
+    private DepartmentRespository departmentRespository;
 
     /**
      * Adds a new line manager to the system.
@@ -38,11 +41,13 @@ public class LineManagerImplement implements LineManagerService {
     @Override
     public LineManagerDto addLineManager(LineManagerDto lineManagerDto) {
         LineManagers lineManager = LineManagerMapper.mapToLineManager(lineManagerDto);
-        if (lineManager.getFirstName() == null || lineManager.getLastName() == null || lineManager.getEmail() == null) {
-            throw new IllegalArgumentException("First name, last name, and email are required");
-        }
         LineManagers savedLineManager = lineManagerRespository.save(lineManager);
-        return LineManagerMapper.mapToLineManagerDto(savedLineManager);
+
+        // Retrieve the saved entity from the database
+        LineManagers retrievedLineManager = lineManagerRespository.findById(savedLineManager.getId())
+                .orElseThrow(() -> new RuntimeException("Failed to retrieve saved line manager"));
+
+        return LineManagerMapper.mapToLineManagerDto(retrievedLineManager);
     }
 
     /**
@@ -56,6 +61,8 @@ public class LineManagerImplement implements LineManagerService {
     public LineManagerDto getLineManagerById(Long id) {
         LineManagers lineManager = lineManagerRespository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Line Manager with id: " + id + " not found"));
+
+        lineManager.setDepartment(lineManager.getDepartment());
         return LineManagerMapper.mapToLineManagerDto(lineManager);
     }
 

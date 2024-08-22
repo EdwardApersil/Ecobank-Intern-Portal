@@ -3,11 +3,12 @@ package com.ecobank.intern_portal.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import javax.net.ssl.SSLSession;
 import java.security.Timestamp;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Complaints")
+@Table(name = "SubTasks")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,5 +34,6 @@ public class SubTask {
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
 }
 

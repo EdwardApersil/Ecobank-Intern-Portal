@@ -1,6 +1,5 @@
 package com.ecobank.intern_portal.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +16,10 @@ public class TaskDto {
     private String description;
     private LocalDate dueDate;
     private String status;
+    @Getter
+    private Long lineManagerId;
+    @Getter
+    private Long internId;
 
     public TaskDto(Long id, String title, String description, LocalDate dueDate, String status) {
         this.id = id;
@@ -24,5 +27,8 @@ public class TaskDto {
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
+        this.lineManagerId = null;
+        this.internId = null;
     }
+
 }

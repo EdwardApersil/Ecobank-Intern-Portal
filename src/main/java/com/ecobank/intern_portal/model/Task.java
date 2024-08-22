@@ -40,4 +40,9 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     private List<SubTask> subTasks;
+
+
+    public Task(Long taskId) {
+        this.id = taskId;
+    }
 }

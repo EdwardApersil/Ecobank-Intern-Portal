@@ -2,8 +2,12 @@ package com.ecobank.intern_portal.service.implementations;
 
 import com.ecobank.intern_portal.dto.InternDto;
 import com.ecobank.intern_portal.mapper.InternMapper;
+import com.ecobank.intern_portal.model.Department;
 import com.ecobank.intern_portal.model.Intern;
+import com.ecobank.intern_portal.model.LineManagers;
+import com.ecobank.intern_portal.repository.DepartmentRespository;
 import com.ecobank.intern_portal.repository.InternRespository;
+import com.ecobank.intern_portal.repository.LineManagerRespository;
 import com.ecobank.intern_portal.service.InternService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class InternImplement implements InternService {
     private InternRespository internRespository;
+    private LineManagerRespository lineManagerRespository;
+    private DepartmentRespository departmentRespository;
 
     /**
  * This method is responsible for adding a new intern to the system.
@@ -32,7 +38,15 @@ public class InternImplement implements InternService {
         if (internDto == null) {
             throw new IllegalArgumentException("The internDto cannot be null.");
         }
+        LineManagers lineManager = lineManagerRespository.findById(internDto.getLineManagerId())
+                .orElseThrow(() -> new RuntimeException("LineManager with id: " + internDto.getLineManagerId() + " not found"));
+
+        Department department = departmentRespository.findById(internDto.getDepartment())
+                .orElseThrow(() -> new RuntimeException("Department with id: " + internDto.getDepartment() + " not found"));
+
         Intern intern = InternMapper.mapToIntern(internDto);
+        intern.setLineManager(lineManager);
+        intern.setDepartment(department);
         Intern savedIntern = internRespository.save(intern);
         return InternMapper.mapToInternDto(savedIntern);
     }
@@ -48,8 +62,8 @@ public class InternImplement implements InternService {
     public InternDto updateIntern(Long id, InternDto updatedInternDto) {
         Intern intern = internRespository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Intern with id: " + id + " not found"));
-        intern.setFirst_name(updatedInternDto.getFirst_name());
-        intern.setLast_name(updatedInternDto.getLast_name());
+        intern.setFirstName(updatedInternDto.getFirstName());
+        intern.setLastName(updatedInternDto.getLastName());
         intern.setEmail(updatedInternDto.getEmail());
         intern.setPassword(updatedInternDto.getPassword());
         Intern updatedIntern = internRespository.save(intern);

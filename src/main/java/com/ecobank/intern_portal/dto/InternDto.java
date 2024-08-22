@@ -1,5 +1,6 @@
 package com.ecobank.intern_portal.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,21 +11,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InternDto {
+
     private Long id;
-    private String first_name;
-    private String last_name;
+
+    @JsonProperty("first_name")
+    private String firstName;
+
+    @JsonProperty("last_name")
+    private String lastName;
+
     private String email;
     private String password;
+    private Long departmentId;
+    private Long lineManagerId;
 
-    // Overload constructor for cases where password is not needed
-    public InternDto(Long id, String first_name, String last_name, String email) {
+    // Overloaded constructors if needed
+    public InternDto(Long id, String firstName, String lastName, String email) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
-
-    public String password() {
-        return password;
+    public Long getDepartment() {
+        return departmentId;
     }
 }

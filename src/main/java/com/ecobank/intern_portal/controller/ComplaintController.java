@@ -17,7 +17,7 @@ public class ComplaintController {
     private final ComplaintService complaintService;
 
 //    PostMapping
-    @PostMapping("/complaint")
+    @PostMapping(value = "/complaint", consumes = "application/json")
     public ResponseEntity<ComplaintDto> createComplaint(@RequestBody ComplaintDto complaintDto) {
         ComplaintDto saveComplaint = complaintService.createComplaint(complaintDto);
         return ResponseEntity.ok(saveComplaint);

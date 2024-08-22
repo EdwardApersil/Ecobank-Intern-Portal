@@ -1,6 +1,8 @@
 package com.ecobank.intern_portal.mapper;
 
 import com.ecobank.intern_portal.dto.TaskDto;
+import com.ecobank.intern_portal.model.Intern;
+import com.ecobank.intern_portal.model.LineManagers;
 import com.ecobank.intern_portal.model.Task;
 
 public class TasksMapper {
@@ -22,6 +24,8 @@ public class TasksMapper {
         task.setDescription(taskDto.getDescription());
         task.setDueDate(taskDto.getDueDate());
         task.setStatus(taskDto.getStatus());
+        task.setLineManager(new LineManagers(taskDto.getLineManagerId()));
+        task.setIntern(new Intern(taskDto.getInternId()));
         return task;
     }
 

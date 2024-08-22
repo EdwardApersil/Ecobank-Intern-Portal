@@ -28,7 +28,10 @@ public class Admins {
     @Column(name = "password", nullable = false)
     private String password;
 
+
     public String password() {
         return password;
     }
+
+
 }
