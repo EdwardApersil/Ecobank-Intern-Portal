@@ -1,13 +1,16 @@
 package com.ecobank.intern_portal.controller;
 
 import com.ecobank.intern_portal.dto.TaskDto;
+import com.ecobank.intern_portal.errorResponse.TaskErrorResponse;
 import com.ecobank.intern_portal.model.Task;
 import com.ecobank.intern_portal.repository.TaskRespository;
 import com.ecobank.intern_portal.service.TaskService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.ErrorResponse;
 
 import java.util.List;
 
@@ -33,12 +36,20 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long id) {
-        if(taskService.getTaskById(id) == null){
-            System.out.println("Task not found");
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<?> getTaskById(@PathVariable("id") Long id, HttpServletRequest request) {
         TaskDto taskById = taskService.getTaskById(id);
+
+        if (taskById == null) {
+            ErrorResponse errorResponse = (ErrorResponse) new TaskErrorResponse(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Task Not Found",
+                    "The task with the given ID does not exist.",
+                    request.getRequestURI(),
+                    String.valueOf(System.currentTimeMillis())
+            );
+            return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        }
+
         return ResponseEntity.ok(taskById);
     }
 
@@ -51,20 +62,7 @@ public class TaskController {
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable("id") Long id) {
         TaskDto taskById = taskService.getTaskById(id);
-        if(taskById == null){
-            ErrorResponse errorResponse = new ErrorResponse() {
-                @Override
-                public HttpStatusCode getStatusCode() {
-                    return null;
-                }
-
-                @Override
-                public ProblemDetail getBody() {
-                    return null;
-                }
-            };
-            return ResponseEntity.notFound().build();
-        }
+        
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
