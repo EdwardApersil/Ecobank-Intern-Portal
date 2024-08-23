@@ -36,7 +36,4 @@ public class Complaint {
     private Admins reviewedBy;
 
 
-    public void setCreatedAt(Timestamp createdAt) {
-    }
-
 }

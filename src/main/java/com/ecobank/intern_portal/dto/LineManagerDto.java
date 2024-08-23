@@ -27,6 +27,7 @@ public class LineManagerDto {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.departmentId = aLong;
     }
 //
 //    public LineManagerDto(Long id, String firstName, String lastName, String email, String password, Long aLong) {

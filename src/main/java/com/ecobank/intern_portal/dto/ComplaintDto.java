@@ -37,7 +37,4 @@ public class ComplaintDto {
         this.createdAt = createdAt;
     }
 
-    public ComplaintDto(Long id, String content, String status, java.security.Timestamp createdAt, Long aLong, Long aLong1) {
-
-    }
 }

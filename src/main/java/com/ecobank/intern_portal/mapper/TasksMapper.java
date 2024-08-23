@@ -13,7 +13,9 @@ public class TasksMapper {
                 task.getTitle(),
                 task.getDescription(),
                 task.getDueDate(),
-                task.getStatus()
+                task.getStatus(),
+                task.getLineManagerId(),
+                task.getInternId()
         );
     }
 

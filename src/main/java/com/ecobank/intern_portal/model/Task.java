@@ -45,4 +45,12 @@ public class Task {
     public Task(Long taskId) {
         this.id = taskId;
     }
+
+    public Long getLineManagerId() {
+        return lineManager.getId();
+    }
+
+    public Long getInternId() {
+        return intern.getId();
+    }
 }

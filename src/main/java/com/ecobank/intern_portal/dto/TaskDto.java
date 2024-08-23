@@ -21,14 +21,14 @@ public class TaskDto {
     @Getter
     private Long internId;
 
-    public TaskDto(Long id, String title, String description, LocalDate dueDate, String status) {
+    public TaskDto(Long id, String title, String description, LocalDate dueDate, String status, Long lineManagerId, Long internId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
-        this.lineManagerId = null;
-        this.internId = null;
+        this.lineManagerId = lineManagerId;
+        this.internId = internId;
     }
 
 }
