@@ -16,6 +16,7 @@ public class LineManagerController {
     @PostMapping("/line-manager")
     public ResponseEntity<LineManagerDto> addLineManager(@RequestBody LineManagerDto lineManagerDto) {
         LineManagerDto savedLineManager = lineManagerService.addLineManager(lineManagerDto);
+        System.out.println("Controller returning" + savedLineManager);
         return ResponseEntity.ok(savedLineManager);
     }
 

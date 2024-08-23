@@ -1,6 +1,6 @@
 package com.ecobank.intern_portal.dto;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,19 +8,28 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class LineManagerDto {
     private Long id;
-    private String first_name;
-    private String last_name;
+    @JsonProperty("first_name")
+    private String firstName;
+    @JsonProperty("last_name")
+    private String lastName;
     private String email;
     private String password;
+    @JsonProperty("department_id")
+    private Long departmentId;
 
-    // Overload constructor for cases where password is not needed
-    public LineManagerDto(Long id, String first_name, String last_name, String email) {
+
+    public LineManagerDto(Long id, String firstName, String lastName, String email, String password, Long aLong){
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        this.departmentId = aLong;
     }
+//
+//    public LineManagerDto(Long id, String firstName, String lastName, String email, String password, Long aLong) {
+//    }
 }

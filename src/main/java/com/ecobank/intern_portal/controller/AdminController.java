@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/intern-portal/v1")
+@CrossOrigin
 public class AdminController {
 
     private final AdminService adminService;
@@ -27,7 +28,7 @@ public class AdminController {
         return ResponseEntity.ok(adminById);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<AdminDto>> getAllAdmins() {
         List<AdminDto> allAdmins = adminService.getAllAdmins();
         return ResponseEntity.ok(allAdmins);

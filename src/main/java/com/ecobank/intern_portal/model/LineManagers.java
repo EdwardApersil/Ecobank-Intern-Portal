@@ -3,56 +3,65 @@ package com.ecobank.intern_portal.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * This class represents a Line Manager in the Ecobank Intern Portal application.
- * It is annotated with JPA annotations to map it to a database table named "lineManagers".
+ * It is annotated with JPA annotations to map it to a database table named "line_managers".
  *
  * @author Edward Apersil
- * @version 1.0
+ * @version 1.1
  */
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
-@ToString
-@Table(name = "lineManagers")
+@AllArgsConstructor
+@ToString(exclude = "password")
+@EqualsAndHashCode(of = "id")
+@Table(name = "line_managers")
 @Entity
 public class LineManagers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * The first name of the Line Manager.
-     */
-    @Column(name = "first_name")
-    private String first_name;
+    @Column(name = "first_name", nullable = false, length = 50)
+    private String firstName;
 
-    /**
-     * The last name of the Line Manager.
-     */
-    @Column(name = "last_name")
-    private String last_name;
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
 
-    /**
-     * The email address of the Line Manager.
-     */
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    /**
-     * The password of the Line Manager.
-     *
-     * @return the password of the Line Manager
-     */
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, length = 60, unique = true)  // Assuming bcrypt hashing
     private String password;
 
-    /**
-     * Returns the password of the Line Manager.
-     *
-     * @return the password of the Line Manager
-     */
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @OneToMany(mappedBy = "lineManager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Intern> interns;
+
+    @OneToMany(mappedBy = "lineManager", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Task> tasks;
+    @Setter
+    private Timestamp createdAt;
+
+    public LineManagers(Long id, String firstName, String lastName, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public LineManagers(Long lineManagerId) {
+        this.id = lineManagerId;
+    }
+
     public String password() {
         return password;
     }

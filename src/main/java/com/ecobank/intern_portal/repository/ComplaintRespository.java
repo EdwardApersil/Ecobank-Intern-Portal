@@ -1,4 +1,8 @@
 package com.ecobank.intern_portal.repository;
 
-public interface ComplaintRespository {
+import com.ecobank.intern_portal.model.Complaint;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ComplaintRespository extends JpaRepository<Complaint, Long> {
+
 }
